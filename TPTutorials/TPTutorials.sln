@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp01", "ConsoleApp01\ConsoleApp01.csproj", "{F7F67A63-B643-4A69-9BEB-CF228BFD75FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCodeFirstDemo", "EFCodeFirstDemo\EFCodeFirstDemo.csproj", "{669C1EE5-EBBE-48D9-991F-1C1E102EC712}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7F67A63-B643-4A69-9BEB-CF228BFD75FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7F67A63-B643-4A69-9BEB-CF228BFD75FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7F67A63-B643-4A69-9BEB-CF228BFD75FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7F67A63-B643-4A69-9BEB-CF228BFD75FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{669C1EE5-EBBE-48D9-991F-1C1E102EC712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{669C1EE5-EBBE-48D9-991F-1C1E102EC712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{669C1EE5-EBBE-48D9-991F-1C1E102EC712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{669C1EE5-EBBE-48D9-991F-1C1E102EC712}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C9E2BB6C-B321-46CC-8DA2-E77527A4E114}
+	EndGlobalSection
+EndGlobal

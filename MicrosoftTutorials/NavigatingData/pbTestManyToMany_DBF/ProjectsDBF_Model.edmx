@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjectsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Keywords">
+          <Key>
+            <PropertyRef Name="KeywordID" />
+          </Key>
+          <Property Name="KeywordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SolutionID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectsKeywords">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="KeywordID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="KeywordID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectsRefs">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="RefID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="RefID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Refs">
+          <Key>
+            <PropertyRef Name="RefID" />
+          </Key>
+          <Property Name="RefID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="400" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solutions">
+          <Key>
+            <PropertyRef Name="SolutionID" />
+          </Key>
+          <Property Name="SolutionID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Projects_Solutions">
+          <End Role="Solutions" Type="Self.Solutions" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solutions">
+              <PropertyRef Name="SolutionID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="SolutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectsRefs_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectsRefs" Type="Self.ProjectsRefs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsRefs">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjKeyw_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectsKeywords" Type="Self.ProjectsKeywords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsKeywords">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectsModelStoreContainer">
+          <EntitySet Name="Keywords" EntityType="Self.Keywords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectsKeywords" EntityType="Self.ProjectsKeywords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectsRefs" EntityType="Self.ProjectsRefs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Refs" EntityType="Self.Refs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solutions" EntityType="Self.Solutions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Projects_Solutions" Association="Self.FK_Projects_Solutions">
+            <End Role="Solutions" EntitySet="Solutions" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectsRefs_Projects" Association="Self.FK_ProjectsRefs_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsRefs" EntitySet="ProjectsRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjKeyw_Projects" Association="Self.FK_ProjKeyw_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsKeywords" EntitySet="ProjectsKeywords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjectsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="KeywordID" />
+          </Key>
+          <Property Name="KeywordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SolutionID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Solution" Relationship="Self.FK_Projects_Solutions" FromRole="Projects" ToRole="Solutions" />
+          <NavigationProperty Name="ProjectsRefs" Relationship="Self.FK_ProjectsRefs_Projects" FromRole="Projects" ToRole="ProjectsRefs" />
+          <NavigationProperty Name="ProjectsKeywords" Relationship="Self.FK_ProjKeyw_Projects" FromRole="Projects" ToRole="ProjectsKeywords" />
+        </EntityType>
+        <EntityType Name="ProjectsKeyword">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="KeywordID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="KeywordID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_ProjKeyw_Projects" FromRole="ProjectsKeywords" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="ProjectsRef">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+            <PropertyRef Name="RefID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="RefID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_ProjectsRefs_Projects" FromRole="ProjectsRefs" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Ref">
+          <Key>
+            <PropertyRef Name="RefID" />
+          </Key>
+          <Property Name="RefID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Url" Type="String" MaxLength="400" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solution">
+          <Key>
+            <PropertyRef Name="SolutionID" />
+          </Key>
+          <Property Name="SolutionID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_Projects_Solutions" FromRole="Solutions" ToRole="Projects" />
+        </EntityType>
+        <Association Name="FK_Projects_Solutions">
+          <End Role="Solutions" Type="Self.Solution" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Solutions">
+              <PropertyRef Name="SolutionID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="SolutionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectsRefs_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectsRefs" Type="Self.ProjectsRef" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsRefs">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjKeyw_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectsKeywords" Type="Self.ProjectsKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectsKeywords">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjectsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Keywords" EntityType="Self.Keyword" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectsKeywords" EntityType="Self.ProjectsKeyword" />
+          <EntitySet Name="ProjectsRefs" EntityType="Self.ProjectsRef" />
+          <EntitySet Name="Refs" EntityType="Self.Ref" />
+          <EntitySet Name="Solutions" EntityType="Self.Solution" />
+          <AssociationSet Name="FK_Projects_Solutions" Association="Self.FK_Projects_Solutions">
+            <End Role="Solutions" EntitySet="Solutions" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectsRefs_Projects" Association="Self.FK_ProjectsRefs_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsRefs" EntitySet="ProjectsRefs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjKeyw_Projects" Association="Self.FK_ProjKeyw_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectsKeywords" EntitySet="ProjectsKeywords" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectsModelStoreContainer" CdmEntityContainer="ProjectsEntities">
+          <EntitySetMapping Name="Keywords">
+            <EntityTypeMapping TypeName="ProjectsModel.Keyword">
+              <MappingFragment StoreEntitySet="Keywords">
+                <ScalarProperty Name="KeywordID" ColumnName="KeywordID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="ProjectsModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="SolutionID" ColumnName="SolutionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectsKeywords">
+            <EntityTypeMapping TypeName="ProjectsModel.ProjectsKeyword">
+              <MappingFragment StoreEntitySet="ProjectsKeywords">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="KeywordID" ColumnName="KeywordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectsRefs">
+            <EntityTypeMapping TypeName="ProjectsModel.ProjectsRef">
+              <MappingFragment StoreEntitySet="ProjectsRefs">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="RefID" ColumnName="RefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Refs">
+            <EntityTypeMapping TypeName="ProjectsModel.Ref">
+              <MappingFragment StoreEntitySet="Refs">
+                <ScalarProperty Name="RefID" ColumnName="RefID" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solutions">
+            <EntityTypeMapping TypeName="ProjectsModel.Solution">
+              <MappingFragment StoreEntitySet="Solutions">
+                <ScalarProperty Name="SolutionID" ColumnName="SolutionID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

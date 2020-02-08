@@ -73,8 +73,7 @@ namespace pbTestManyToMany3_CF_Live
 
         private void navTest()
         {
-            //projectsBindingNavigator.AddStandardItems();
-            //string items = projectsBindingNavigator.Items.ToString();
+            projectsBindingNavigator.AddStandardItems();            
             foreach (var item in projectsBindingNavigator.Items)
             {
                 string s = item.ToString();

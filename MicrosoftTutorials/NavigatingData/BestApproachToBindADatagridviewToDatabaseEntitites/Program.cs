@@ -1,0 +1,24 @@
+﻿///https://stackoverflow.com/questions/21117217/best-approach-to-bind-a-datagridview-to-database-entity-ies
+//Best approach to bind a datagridview to database entity/ies
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace BestApproachToBindADatagridviewToDatabaseEntitites
+{
+    static class Program
+    {
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
+        }
+    }
+}
